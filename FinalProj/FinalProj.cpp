@@ -29,24 +29,26 @@ public:
     bool isAvailable() const;
     void book();
     void unbook();
-    bool isWindow()  const;
-    bool isCrewSeat()const;
+    bool isWindow()   const;
+    bool isCrewSeat() const;
 };
 
 Seat::Seat(int num, bool booked, bool reserved)
     : seatNumber(num), isBooked(booked), isCrewReserved(reserved) {
 }
 
-int Seat::getSeatNumber() const { return seatNumber; }
-bool Seat::getIsBooked() const { return isBooked; }
+int  Seat::getSeatNumber()     const { return seatNumber; }
+bool Seat::getIsBooked()       const { return isBooked; }
 bool Seat::getIsCrewReserved() const { return isCrewReserved; }
+
 void Seat::setSeatNumber(int num) { seatNumber = num; }
 void Seat::setIsBooked(bool b) { isBooked = b; }
 void Seat::setIsCrewReserved(bool r) { isCrewReserved = r; }
+
 bool Seat::isAvailable() const { return !isBooked && !isCrewReserved; }
 void Seat::book() { isBooked = true; }
 void Seat::unbook() { isBooked = false; }
-bool Seat::isWindow() const { return seatNumber % 6 == 0; }
+bool Seat::isWindow()   const { return seatNumber % 6 == 0; }
 bool Seat::isCrewSeat() const { return isCrewReserved; }
 
 // ========== FLIGHT BASE CLASS ==========
@@ -58,24 +60,28 @@ protected:
     int    availableSeats;
 public:
     Seat seats[110];
+
     Flight(string n, string o, string d, int t,
         string fNum, string time, string day);
-    string getName()          const;
-    string getOrigin()        const;
-    string getDestination()   const;
-    int    getType()          const;
-    string getFlightNumber()  const;
-    string getDepartureTime() const;
-    string getDepartureDay()  const;
-    int    getAvailableSeats()const;
-    void   setName(string n);
-    void   setOrigin(string o);
-    void   setDestination(string d);
-    void   setType(int t);
-    void   setFlightNumber(string fn);
-    void   setDepartureTime(string dt);
-    void   setDepartureDay(string dd);
-    void   setAvailableSeats(int s);
+
+    string getName()           const;
+    string getOrigin()         const;
+    string getDestination()    const;
+    int    getType()           const;
+    string getFlightNumber()   const;
+    string getDepartureTime()  const;
+    string getDepartureDay()   const;
+    int    getAvailableSeats() const;
+
+    void setName(string n);
+    void setOrigin(string o);
+    void setDestination(string d);
+    void setType(int t);
+    void setFlightNumber(string fn);
+    void setDepartureTime(string dt);
+    void setDepartureDay(string dd);
+    void setAvailableSeats(int s);
+
     virtual double getMultiplier() = 0;
     virtual int    getBusinessBaggage() = 0;
     virtual int    getEconomyBaggage() = 0;
@@ -96,14 +102,15 @@ Flight::Flight(string n, string o, string d, int t,
     }
 }
 
-string Flight::getName() const { return name; }
-string Flight::getOrigin() const { return origin; }
-string Flight::getDestination() const { return destination; }
-int Flight::getType() const { return type; }
-string Flight::getFlightNumber() const { return flightNumber; }
-string Flight::getDepartureTime() const { return departureTime; }
-string Flight::getDepartureDay() const { return departureDay; }
-int Flight::getAvailableSeats() const { return availableSeats; }
+string Flight::getName()           const { return name; }
+string Flight::getOrigin()         const { return origin; }
+string Flight::getDestination()    const { return destination; }
+int    Flight::getType()           const { return type; }
+string Flight::getFlightNumber()   const { return flightNumber; }
+string Flight::getDepartureTime()  const { return departureTime; }
+string Flight::getDepartureDay()   const { return departureDay; }
+int    Flight::getAvailableSeats() const { return availableSeats; }
+
 void Flight::setName(string n) { name = n; }
 void Flight::setOrigin(string o) { origin = o; }
 void Flight::setDestination(string d) { destination = d; }
@@ -133,9 +140,9 @@ SereneAir::SereneAir(string o, string d, int t, string fNum, string time, string
 }
 
 double SereneAir::getMultiplier() { return 1.1; }
-int SereneAir::getBusinessBaggage() { return (type == 1) ? 35 : 45; }
-int SereneAir::getEconomyBaggage() { return (type == 1) ? 25 : 35; }
-int SereneAir::getBaggageChargePerKg() { return (type == 1) ? 1000 : 2000; }
+int    SereneAir::getBusinessBaggage() { return (type == 1) ? 35 : 45; }
+int    SereneAir::getEconomyBaggage() { return (type == 1) ? 25 : 35; }
+int    SereneAir::getBaggageChargePerKg() { return (type == 1) ? 1000 : 2000; }
 
 class PIA : public Flight {
 public:
@@ -151,9 +158,9 @@ PIA::PIA(string o, string d, int t, string fNum, string time, string day)
 }
 
 double PIA::getMultiplier() { return 1.0; }
-int PIA::getBusinessBaggage() { return (type == 1) ? 30 : 40; }
-int PIA::getEconomyBaggage() { return (type == 1) ? 20 : 30; }
-int PIA::getBaggageChargePerKg() { return (type == 1) ? 1000 : 2000; }
+int    PIA::getBusinessBaggage() { return (type == 1) ? 30 : 40; }
+int    PIA::getEconomyBaggage() { return (type == 1) ? 20 : 30; }
+int    PIA::getBaggageChargePerKg() { return (type == 1) ? 1000 : 2000; }
 
 class AirBlue : public Flight {
 public:
@@ -169,9 +176,9 @@ AirBlue::AirBlue(string o, string d, int t, string fNum, string time, string day
 }
 
 double AirBlue::getMultiplier() { return 0.9; }
-int AirBlue::getBusinessBaggage() { return (type == 1) ? 28 : 38; }
-int AirBlue::getEconomyBaggage() { return (type == 1) ? 18 : 28; }
-int AirBlue::getBaggageChargePerKg() { return (type == 1) ? 1000 : 2000; }
+int    AirBlue::getBusinessBaggage() { return (type == 1) ? 28 : 38; }
+int    AirBlue::getEconomyBaggage() { return (type == 1) ? 18 : 28; }
+int    AirBlue::getBaggageChargePerKg() { return (type == 1) ? 1000 : 2000; }
 
 class AirSial : public Flight {
 public:
@@ -187,9 +194,9 @@ AirSial::AirSial(string o, string d, int t, string fNum, string time, string day
 }
 
 double AirSial::getMultiplier() { return 1.2; }
-int AirSial::getBusinessBaggage() { return (type == 1) ? 40 : 50; }
-int AirSial::getEconomyBaggage() { return (type == 1) ? 30 : 40; }
-int AirSial::getBaggageChargePerKg() { return (type == 1) ? 1000 : 2000; }
+int    AirSial::getBusinessBaggage() { return (type == 1) ? 40 : 50; }
+int    AirSial::getEconomyBaggage() { return (type == 1) ? 30 : 40; }
+int    AirSial::getBaggageChargePerKg() { return (type == 1) ? 1000 : 2000; }
 
 // ========== PASSENGER BASE CLASS ==========
 class Passenger {
@@ -199,18 +206,21 @@ protected:
 public:
     Passenger(string n = "", string a = "", string nat = "",
         string c = "", int ag = 0, int bag = 0);
-    string getName()         const;
-    string getAddress()      const;
-    string getNationality()  const;
-    string getCNIC()         const;
-    int    getAge()          const;
-    int    getBaggageWeight()const;
-    void   setName(string n);
-    void   setAddress(string a);
-    void   setNationality(string nat);
-    void   setCNIC(string c);
-    void   setAge(int ag);
-    void   setBaggageWeight(int bw);
+
+    string getName()          const;
+    string getAddress()       const;
+    string getNationality()   const;
+    string getCNIC()          const;
+    int    getAge()           const;
+    int    getBaggageWeight() const;
+
+    void setName(string n);
+    void setAddress(string a);
+    void setNationality(string nat);
+    void setCNIC(string c);
+    void setAge(int ag);
+    void setBaggageWeight(int bw);
+
     virtual int calculateFare(int seatNo, int flightType) = 0;
     virtual int getFreeBaggage(int classType) = 0;
     virtual int getBaggageCharge() = 0;
@@ -222,12 +232,13 @@ Passenger::Passenger(string n, string a, string nat,
     : name(n), address(a), nationality(nat), cnic(c), age(ag), baggageWeight(bag) {
 }
 
-string Passenger::getName() const { return name; }
-string Passenger::getAddress() const { return address; }
-string Passenger::getNationality() const { return nationality; }
-string Passenger::getCNIC() const { return cnic; }
-int Passenger::getAge() const { return age; }
-int Passenger::getBaggageWeight() const { return baggageWeight; }
+string Passenger::getName()          const { return name; }
+string Passenger::getAddress()       const { return address; }
+string Passenger::getNationality()   const { return nationality; }
+string Passenger::getCNIC()          const { return cnic; }
+int    Passenger::getAge()           const { return age; }
+int    Passenger::getBaggageWeight() const { return baggageWeight; }
+
 void Passenger::setName(string n) { name = n; }
 void Passenger::setAddress(string a) { address = a; }
 void Passenger::setNationality(string nat) { nationality = nat; }
@@ -296,6 +307,7 @@ class Booking {
 public:
     Booking(Seat s, Passenger* p, int f, int bf,
         Flight* fl, int ct, string bid);
+
     int        getFare()          const;
     int        getBaggageFare()   const;
     int        getTotalFare()     const;
@@ -309,10 +321,11 @@ public:
     Seat       getSeat()          const;
     Passenger* getPassenger()     const;
     Flight* getFlight()        const;
-    void       setFare(int f);
-    void       setBaggageFare(int bf);
-    void       setClassType(int ct);
-    void       setBookingID(string bid);
+
+    void setFare(int f);
+    void setBaggageFare(int bf);
+    void setClassType(int ct);
+    void setBookingID(string bid);
 };
 
 Booking::Booking(Seat s, Passenger* p, int f, int bf,
@@ -321,19 +334,20 @@ Booking::Booking(Seat s, Passenger* p, int f, int bf,
     flight(fl), classType(ct), bookingID(bid) {
 }
 
-int Booking::getFare() const { return fare; }
-int Booking::getBaggageFare() const { return baggageFare; }
-int Booking::getTotalFare() const { return fare + baggageFare; }
-string Booking::getPassengerName() const { return passenger->getName(); }
-string Booking::getPassengerCNIC() const { return passenger->getCNIC(); }
-int Booking::getSeatNumber() const { return seat.getSeatNumber(); }
-string Booking::getFlightInfo() const { return flight->getFlightInfo(); }
-string Booking::getFlightNumber() const { return flight->getFlightNumber(); }
-string Booking::getBookingID() const { return bookingID; }
-int Booking::getClassType() const { return classType; }
-Seat Booking::getSeat() const { return seat; }
-Passenger* Booking::getPassenger() const { return passenger; }
-Flight* Booking::getFlight() const { return flight; }
+int        Booking::getFare()          const { return fare; }
+int        Booking::getBaggageFare()   const { return baggageFare; }
+int        Booking::getTotalFare()     const { return fare + baggageFare; }
+string     Booking::getPassengerName() const { return passenger->getName(); }
+string     Booking::getPassengerCNIC() const { return passenger->getCNIC(); }
+int        Booking::getSeatNumber()    const { return seat.getSeatNumber(); }
+string     Booking::getFlightInfo()    const { return flight->getFlightInfo(); }
+string     Booking::getFlightNumber()  const { return flight->getFlightNumber(); }
+string     Booking::getBookingID()     const { return bookingID; }
+int        Booking::getClassType()     const { return classType; }
+Seat       Booking::getSeat()          const { return seat; }
+Passenger* Booking::getPassenger()     const { return passenger; }
+Flight* Booking::getFlight()        const { return flight; }
+
 void Booking::setFare(int f) { fare = f; }
 void Booking::setBaggageFare(int bf) { baggageFare = bf; }
 void Booking::setClassType(int ct) { classType = ct; }
@@ -347,6 +361,7 @@ class ReservationSystem {
 public:
     ReservationSystem();
     ~ReservationSystem();
+
     void     initializeFlights();
     int      getFlightCount()                          const;
     int      getBookingCount()                         const;
@@ -372,8 +387,6 @@ public:
     Booking* findByName(const string& nm)                  const;
     bool     cancelByCNIC(const string& cnic,
         int& origFare, int& charge, int& refund);
-
-    // ── FILE HANDLING ──
     void saveToFile()   const;
     bool loadFromFile();
 };
@@ -387,7 +400,7 @@ ReservationSystem::ReservationSystem()
 }
 
 ReservationSystem::~ReservationSystem() {
-    for (int i = 0; i < flightCount; i++) delete flights[i];
+    for (int i = 0; i < flightCount; i++)  delete flights[i];
     for (int i = 0; i < bookingCount; i++) delete bookings[i];
     delete[] flights;
     delete[] bookings;
@@ -406,14 +419,14 @@ void ReservationSystem::initializeFlights() {
     flights[flightCount++] = new AirSial("Pakistan", "Malaysia", 2, "PF-600", "11:30 PM", "Thursday");
 }
 
-int ReservationSystem::getFlightCount() const { return flightCount; }
-int ReservationSystem::getBookingCount() const { return bookingCount; }
-int ReservationSystem::getTotalRevenue() const { return totalRevenue; }
-void ReservationSystem::setTotalRevenue(int r) { totalRevenue = r; }
-void ReservationSystem::setBookingIDCounter(int c) { bookingIDCounter = c; }
-int ReservationSystem::getBookingIDCounter() const { return bookingIDCounter; }
-Flight* ReservationSystem::getFlight(int i) const { return flights[i]; }
-Booking* ReservationSystem::getBooking(int i) const { return bookings[i]; }
+int      ReservationSystem::getFlightCount()     const { return flightCount; }
+int      ReservationSystem::getBookingCount()    const { return bookingCount; }
+int      ReservationSystem::getTotalRevenue()    const { return totalRevenue; }
+void     ReservationSystem::setTotalRevenue(int r) { totalRevenue = r; }
+void     ReservationSystem::setBookingIDCounter(int c) { bookingIDCounter = c; }
+int      ReservationSystem::getBookingIDCounter()const { return bookingIDCounter; }
+Flight* ReservationSystem::getFlight(int i)     const { return flights[i]; }
+Booking* ReservationSystem::getBooking(int i)    const { return bookings[i]; }
 
 Flight* ReservationSystem::getFlightByNumber(const string& fNum) const {
     for (int i = 0; i < flightCount; i++)
@@ -458,6 +471,11 @@ int ReservationSystem::createBooking(int flightType, int flightIdx, int classTyp
     Flight* f = getFlightByIndex(flightType, flightIdx);
     if (!f) return -1;
     if (seatNo < 1 || seatNo > 110) return -1;
+
+    // ── CLASS RESTRICTION: validate seat belongs to chosen class ──
+    if (classType == 1 && seatNo > 25) return -2;   // Business seat must be 1-25
+    if (classType == 2 && seatNo <= 25) return -3;  // Economy seat must be 26-110
+
     if (!f->seats[seatNo - 1].isAvailable()) return -1;
 
     Passenger* p;
@@ -481,10 +499,10 @@ int ReservationSystem::createBooking(int flightType, int flightIdx, int classTyp
     return bookingCount - 1;
 }
 
-// Special load function used only by loadFromFile (skips fare recalculation)
 int ReservationSystem::loadBooking(string flightNum, int seatNo, int classType,
     string nm, string addr, string nat, string cnic,
-    int age, int bagWeight, int fare, int baggageFare, string bookingID)
+    int age, int bagWeight, int fare, int baggageFare,
+    string bookingID)
 {
     Flight* f = getFlightByNumber(flightNum);
     if (!f) return -1;
@@ -553,14 +571,8 @@ bool ReservationSystem::cancelByCNIC(const string& cnic,
 
 // =====================================================================
 //  FILE HANDLING
-//  3 files are used:
-//    revenue.txt   — totalRevenue & bookingIDCounter
-//    flights.txt   — seat booked/available status per flight
-//    bookings.txt  — all booking records
 // =====================================================================
-
 void ReservationSystem::saveToFile() const {
-    // 1. Revenue & Counter
     {
         ofstream rf("revenue.txt");
         if (rf.is_open()) {
@@ -569,7 +581,6 @@ void ReservationSystem::saveToFile() const {
             rf.close();
         }
     }
-    // 2. Flight seat status
     {
         ofstream ff("flights.txt");
         if (ff.is_open()) {
@@ -583,7 +594,6 @@ void ReservationSystem::saveToFile() const {
             ff.close();
         }
     }
-    // 3. Bookings
     {
         ofstream bf("bookings.txt");
         if (bf.is_open()) {
@@ -610,14 +620,12 @@ void ReservationSystem::saveToFile() const {
 }
 
 bool ReservationSystem::loadFromFile() {
-    // 1. Revenue & Counter
     {
         ifstream rf("revenue.txt");
         if (!rf.is_open()) return false;
         rf >> totalRevenue >> bookingIDCounter;
         rf.close();
     }
-    // 2. Flight seat status
     {
         ifstream ff("flights.txt");
         if (ff.is_open()) {
@@ -638,7 +646,6 @@ bool ReservationSystem::loadFromFile() {
             ff.close();
         }
     }
-    // 3. Bookings
     {
         ifstream bf("bookings.txt");
         if (!bf.is_open()) return false;
@@ -680,7 +687,6 @@ int main() {
     cout << "|                                        |\n";
     cout << "+========================================+\n";
 
-    // Auto-load on startup
     if (rs.loadFromFile())
         cout << "\n[INFO] Previous data loaded successfully.\n";
     else
@@ -762,6 +768,7 @@ int main() {
             cout << "+-----------------------------------+\n";
             cout << "Enter your choice: ";
             int classType = safeIntInput();
+            if (classType != 1 && classType != 2) { cout << "Invalid class!\n"; continue; }
 
             int  startIdx = rs.getBookingCount();
             int  groupFare = 0;
@@ -775,14 +782,47 @@ int main() {
 
                 int seatArr[110];
                 int seatCnt = rs.getAvailableSeatsArr(sel, classType, seatArr);
-                cout << "Available Seats: ";
+
+                if (seatCnt == 0) {
+                    cout << "No available seats in selected class!\n";
+                    allOk = false;
+                    break;
+                }
+
+                cout << "Available Seats (" << (classType == 1 ? "Business 1-25" : "Economy 26-110") << "): ";
                 for (int k = 0; k < seatCnt; k++) {
                     cout << seatArr[k];
                     if (seatArr[k] % 6 == 0) cout << "(W)";
                     cout << " ";
                 }
-                cout << "\nSelect seat number: ";
-                int seatNo = safeIntInput();
+
+                // ── SEAT VALIDATION LOOP ──────────────────────────────
+                int seatNo = 0;
+                bool validSeat = false;
+                while (!validSeat) {
+                    cout << "\nSelect seat number: ";
+                    seatNo = safeIntInput();
+
+                    if (classType == 1 && (seatNo < 1 || seatNo > 25)) {
+                        cout << "[ERROR] Business Class seats are 1 to 25 only. Please try again.";
+                        continue;
+                    }
+                    if (classType == 2 && (seatNo < 26 || seatNo > 110)) {
+                        cout << "[ERROR] Economy Class seats are 26 to 110 only. Please try again.";
+                        continue;
+                    }
+
+                    // Check if chosen seat is actually available
+                    bool inList = false;
+                    for (int k = 0; k < seatCnt; k++) {
+                        if (seatArr[k] == seatNo) { inList = true; break; }
+                    }
+                    if (!inList) {
+                        cout << "[ERROR] Seat " << seatNo << " is already booked or reserved. Please choose another.";
+                        continue;
+                    }
+                    validSeat = true;
+                }
 
                 cin.ignore();
                 string nm, addr, nat, cnic;
@@ -796,8 +836,18 @@ int main() {
 
                 int idx = rs.createBooking(flightType, flightChoice - 1, classType,
                     nm, addr, nat, cnic, age, bagWeight, seatNo);
+                if (idx == -2) {
+                    cout << "[ERROR] Seat " << seatNo << " is not a Business Class seat (1-25). Booking aborted.\n";
+                    allOk = false;
+                    break;
+                }
+                if (idx == -3) {
+                    cout << "[ERROR] Seat " << seatNo << " is not an Economy Class seat (26-110). Booking aborted.\n";
+                    allOk = false;
+                    break;
+                }
                 if (idx < 0) {
-                    cout << "Invalid seat! Booking aborted.\n";
+                    cout << "[ERROR] Invalid seat or seat unavailable! Booking aborted.\n";
                     allOk = false;
                     break;
                 }
@@ -881,7 +931,6 @@ int main() {
                 cout << "Have a pleasant journey with " << fl->getName() << "!\n";
             }
 
-            // Auto-save after booking
             rs.saveToFile();
             cout << "\n[INFO] Data auto-saved to files.\n";
             cout << "\nALL BOOKINGS COMPLETED SUCCESSFULLY!\n";
@@ -1009,7 +1058,6 @@ int main() {
                 cout << "|  REFUND AMOUNT:      Rs. " << refund << "\n";
                 cout << "+----------------------------------------+\n";
                 cout << "Booking cancelled successfully!\n";
-                // Auto-save after cancellation
                 rs.saveToFile();
                 cout << "[INFO] Data auto-saved to files.\n";
             }
@@ -1031,7 +1079,8 @@ int main() {
                 cout << "|  CNIC:       " << setw(34) << left << b->getPassengerCNIC() << "|\n";
                 cout << "|  Flight:     " << setw(34) << left << fl->getFlightNumber() << "|\n";
                 cout << "|  Route:      " << setw(34) << left
-                    << (fl->getOrigin() + " -> " + fl->getDestination()) << "|\n";
+                    << (fl->getOrigin() + " -> " +
+                        ->getDestination()) << "|\n";
                 cout << "|  Seat:       " << setw(34) << left << b->getSeatNumber() << "|\n";
                 cout << "|  Total Fare: " << setw(34) << left
                     << ("Rs. " + to_string(b->getTotalFare())) << "|\n";
@@ -1062,7 +1111,6 @@ int main() {
 
         // ── 7. EXIT ───────────────────────────────────────────────────
         else if (choice == 7) {
-            // Auto-save on exit
             rs.saveToFile();
             cout << "\n[INFO] Data auto-saved on exit.\n";
             cout << "\nThank you for using Fly Sky Pakistan!\n";
